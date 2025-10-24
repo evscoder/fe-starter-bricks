@@ -1,0 +1,12 @@
+{% extends "templates/template.njk" %}
+
+{% set page = {
+    title: 'Starter Boilerplate'
+} %}
+
+{% block content %}
+    <div class="container">
+        <img src={{ Config.images.Logo }} alt="Starter Boilerplate", width="200" style="margin-top: 50px;">
+        <h1>{{ page.title }} Nunjucks</h1>
+    </div>
+{% endblock %}

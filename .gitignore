@@ -1,0 +1,36 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dev
+/build
+/tmp
+
+# dependencies
+node_modules
+package-lock.json
+
+# IDEs and editors
+/.idea
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/.publish
+npm-debug.log
+yarn-error.log
+/typings
+/*.zip
+**/components/**/__snapshot-*
+
+# System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+
+

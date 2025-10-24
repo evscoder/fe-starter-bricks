@@ -1,0 +1,202 @@
+// SCSS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home {
+//   width: $icon-home-width;
+// }
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path;
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites;
+$arrow-down-name: 'arrow-down';
+$arrow-down-x: 0px;
+$arrow-down-y: 38px;
+$arrow-down-offset-x: 0px;
+$arrow-down-offset-y: -38px;
+$arrow-down-width: 69px;
+$arrow-down-height: 37px;
+$arrow-down-total-width: 69px;
+$arrow-down-total-height: 117px;
+$arrow-down-image: 'sprite.png';
+$arrow-down: (0px, 38px, 0px, -38px, 69px, 37px, 69px, 117px, 'sprite.png', 'arrow-down', );
+$bronze-name: 'bronze';
+$bronze-x: 0px;
+$bronze-y: 77px;
+$bronze-offset-x: 0px;
+$bronze-offset-y: -77px;
+$bronze-width: 36px;
+$bronze-height: 40px;
+$bronze-total-width: 69px;
+$bronze-total-height: 117px;
+$bronze-image: 'sprite.png';
+$bronze: (0px, 77px, 0px, -77px, 36px, 40px, 69px, 117px, 'sprite.png', 'bronze', );
+$cup-bronze-name: 'cup-bronze';
+$cup-bronze-x: 0px;
+$cup-bronze-y: 0px;
+$cup-bronze-offset-x: 0px;
+$cup-bronze-offset-y: 0px;
+$cup-bronze-width: 33px;
+$cup-bronze-height: 36px;
+$cup-bronze-total-width: 69px;
+$cup-bronze-total-height: 117px;
+$cup-bronze-image: 'sprite.png';
+$cup-bronze: (0px, 0px, 0px, 0px, 33px, 36px, 69px, 117px, 'sprite.png', 'cup-bronze', );
+$arrow-down-2x-name: 'arrow-down@2x';
+$arrow-down-2x-x: 0px;
+$arrow-down-2x-y: 76px;
+$arrow-down-2x-offset-x: 0px;
+$arrow-down-2x-offset-y: -76px;
+$arrow-down-2x-width: 138px;
+$arrow-down-2x-height: 74px;
+$arrow-down-2x-total-width: 138px;
+$arrow-down-2x-total-height: 234px;
+$arrow-down-2x-image: 'dev/assets/img//sprite';
+$arrow-down-2x: (0px, 76px, 0px, -76px, 138px, 74px, 138px, 234px, 'dev/assets/img//sprite', 'arrow-down@2x', );
+$bronze-2x-name: 'bronze@2x';
+$bronze-2x-x: 0px;
+$bronze-2x-y: 154px;
+$bronze-2x-offset-x: 0px;
+$bronze-2x-offset-y: -154px;
+$bronze-2x-width: 72px;
+$bronze-2x-height: 80px;
+$bronze-2x-total-width: 138px;
+$bronze-2x-total-height: 234px;
+$bronze-2x-image: 'dev/assets/img//sprite';
+$bronze-2x: (0px, 154px, 0px, -154px, 72px, 80px, 138px, 234px, 'dev/assets/img//sprite', 'bronze@2x', );
+$cup-bronze-2x-name: 'cup-bronze@2x';
+$cup-bronze-2x-x: 0px;
+$cup-bronze-2x-y: 0px;
+$cup-bronze-2x-offset-x: 0px;
+$cup-bronze-2x-offset-y: 0px;
+$cup-bronze-2x-width: 66px;
+$cup-bronze-2x-height: 72px;
+$cup-bronze-2x-total-width: 138px;
+$cup-bronze-2x-total-height: 234px;
+$cup-bronze-2x-image: 'dev/assets/img//sprite';
+$cup-bronze-2x: (0px, 0px, 0px, 0px, 66px, 72px, 138px, 234px, 'dev/assets/img//sprite', 'cup-bronze@2x', );
+$spritesheet-width: 69px;
+$spritesheet-height: 117px;
+$spritesheet-image: 'sprite.png';
+$spritesheet-sprites: ($arrow-down, $bronze, $cup-bronze, );
+$spritesheet: (69px, 117px, 'sprite.png', $spritesheet-sprites, );
+$retina-spritesheet-width: 138px;
+$retina-spritesheet-height: 234px;
+$retina-spritesheet-image: 'dev/assets/img//sprite';
+$retina-spritesheet-sprites: ($arrow-down-2x, $bronze-2x, $cup-bronze-2x, );
+$retina-spritesheet: (138px, 234px, 'dev/assets/img//sprite', $retina-spritesheet-sprites, );
+
+// These "retina group" variables are mappings for the naming and pairing of normal and retina sprites.
+//
+// The list formatted variables are intended for mixins like `retina-sprite` and `retina-sprites`.
+$arrow-down-group-name: 'arrow-down';
+$arrow-down-group: ('arrow-down', $arrow-down, $arrow-down-2x, );
+$bronze-group-name: 'bronze';
+$bronze-group: ('bronze', $bronze, $bronze-2x, );
+$cup-bronze-group-name: 'cup-bronze';
+$cup-bronze-group: ('cup-bronze', $cup-bronze, $cup-bronze-2x, );
+$retina-groups: ($arrow-down-group, $bronze-group, $cup-bronze-group, );
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home {
+//   @include sprite-width($icon-home);
+// }
+//
+// .icon-email {
+//   @include sprite($icon-email);
+// }
+//
+// Example usage in HTML:
+//
+// `display: block` sprite:
+// <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//
+// // CSS
+// .icon {
+//   display: inline-block;
+// }
+//
+// // HTML
+// <i class="icon icon-home"></i>
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+// The `retina-sprite` mixin sets up rules and a media query for a sprite/retina sprite.
+//   It should be used with a "retina group" variable.
+//
+// The media query is from CSS Tricks: https://css-tricks.com/snippets/css/retina-display-media-query/
+//
+// $icon-home-group: ('icon-home', $icon-home, $icon-home-2x, );
+//
+// .icon-home {
+//   @include retina-sprite($icon-home-group);
+// }
+@mixin sprite-background-size($sprite) {
+  $sprite-total-width: nth($sprite, 7);
+  $sprite-total-height: nth($sprite, 8);
+  background-size: $sprite-total-width $sprite-total-height;
+}
+
+@mixin retina-sprite($retina-group) {
+  $normal-sprite: nth($retina-group, 2);
+  $retina-sprite: nth($retina-group, 3);
+  @include sprite($normal-sprite);
+
+  @media (-webkit-min-device-pixel-ratio: 2),
+         (min-resolution: 192dpi) {
+    @include sprite-image($retina-sprite);
+    @include sprite-background-size($normal-sprite);
+  }
+}
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SCSS
+//
+// @include sprites($spritesheet-sprites);
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}
+
+// The `retina-sprites` mixin generates a CSS rule and media query for retina groups
+//   This yields the same output as CSS retina template but can be overridden in SCSS
+//
+// @include retina-sprites($retina-groups);
+@mixin retina-sprites($retina-groups) {
+  @each $retina-group in $retina-groups {
+    $sprite-name: nth($retina-group, 1);
+    .#{$sprite-name} {
+      @include retina-sprite($retina-group);
+    }
+  }
+}

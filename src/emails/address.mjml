@@ -1,0 +1,55 @@
+<mjml owa="desktop">
+  <mj-include path="./include/head.mjml" />
+  <mj-body width="600px">
+    <mj-table align="center">
+      <tr>
+        <td style="padding-bottom: 31px; text-align: center;">
+          <img src="images/logo.png" width="91" height="auto" alt="#" />
+        </td>
+      </tr>
+    </mj-table>
+    <mj-wrapper border-radius="16px" background-color="#ffffff">
+      <mj-section padding="32px 15px 15px">
+        <mj-column>
+            <mj-table>
+                <tr>
+                <td class="text-center">
+                    <img class="center" src="images/address.jpg" width="359" height="auto" alt="#" />
+                </td>
+                </tr>
+            </mj-table>
+        </mj-column>
+      </mj-section>
+      <mj-section padding="15px 20px 12px">
+        <mj-column>
+          <mj-text mj-class="text-default"><b>Hi Tanya,</b><br /> Follow the link below to verify your email address and setting up your account.<br> This link is only valid for the next <b>24 hours</b></mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section>
+        <mj-column>
+          <mj-table>
+            <tr>
+              <td>
+                <table>
+                  <tr>
+                    <td align="center">
+                      <div class="button" style="padding: 16px 36px 48px; background-image: url(images/address-btn.jpg); margin-bottom: -24px;">
+                        <a href="http://www.google.com" target="_blank" style="padding: 14px 34px;">Verify your email</a>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </mj-table>
+        </mj-column>
+      </mj-section>
+      <mj-section padding="0 20px 23px">
+        <mj-column>
+          <mj-text font-size="14px" line-height="140%" font-weight="normal">Best regards, <br /> Company team</mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-include path="./include/footer.mjml" />
+    </mj-wrapper>
+  </mj-body>
+</mjml>

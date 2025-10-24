@@ -1,0 +1,44 @@
+<mjml owa="desktop">
+  <mj-include path="./include/head.mjml" />
+  <mj-body width="600px">
+    <mj-wrapper border-radius="16px" background-color="#ffffff">
+      <mj-section padding="40px 15px 20px">
+        <mj-column>
+          <mj-text font-size="24px" line-height="110%" color="#202833" font-weight="bold" letter-spacing="-0.5%" align="center">Check your inbox!</mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section padding="0 15px 10px">
+        <mj-column>
+          <mj-text>We’ve sent an email to  <a href="mailto:john.doe@gmail.com"><b>john.doe@gmail.com</b></a>.</mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section padding="0 15px 5px">
+        <mj-column>
+          <mj-text>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque at nam consequuntur doloribus ducimus beatae similique? Deserunt impedit dicta magnam suscipit delectus nam quos inventore modi veritatis! <b>24 hours.</b></mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section>
+        <mj-column>
+          <mj-table table-layout="fixed">
+            <tr>
+              <td>
+                <table>
+                  <tr style="text-align: center;">
+                    <td style="padding-bottom: 10px;"><img src="images/img-send.jpg", alt="#"></td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                        <div class="button" style="padding: 16px 36px 48px; background-image: url(images/confirm-btn.jpg);">
+                            <a href="http://www.google.com" target="_blank" style="padding: 14px 38px;">Resend link</a>
+                        </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </mj-table>
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
+  </mj-body>
+</mjml>
