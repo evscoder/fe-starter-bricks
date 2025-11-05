@@ -6,7 +6,7 @@
     <img width="200" height="auto" src="../src/assets/img/Logo.svg" title="Starter Boilerplate" alt="Starter Boilerplate" align="center"> <h1 style="font-weight: bold; display: inline-block; vertical-align: middle;">Fe Starter Bricks</h1>
 </p>
 
-A modular builder for frontend development based on Gulp 4 and Webpack 5, including tools:
+#### A modular builder for frontend development based on Gulp 4 and Webpack 5, including tools:
 - Template engines: Pug, Nunjucks, MJML, JSON.
 - Emitty plugin for incremental template building.
 - Scss preprocessor.
@@ -25,7 +25,8 @@ A modular builder for frontend development based on Gulp 4 and Webpack 5, includ
 - Ability to import styles both in JavaScript and via `scss use`.
 - Option to choose between two template engines: Pug or Nunjucks.
 - Automatic sprite generation from SVG icons — just drop in an icon and the sprite will be generated.
-- TypeScript support.
+- TypeScript support. Autocompletion, type checking, and enhanced code safety are available out of the box.
+- TailwindCSS support. Utility classes, Tailwind configuration, and plugins are fully integrated into the project.
 - The build system is easy to keep up to date, which simplifies future migrations. With the help of webpack configuration, it can be extended using various plugins.
 - The build system is independent of the global environment — only Node.js needs to be installed.
 
