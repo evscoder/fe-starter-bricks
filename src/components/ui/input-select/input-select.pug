@@ -1,0 +1,12 @@
+mixin InputSelect({id, name, placeholder, items}, checkedItem)
+    .input-select
+        select.input-select__input.js-input-select(
+            id=id
+            name=name,
+            required
+        )
+            option(value='', disabled, selected)=placeholder
+            each item, index in items
+                - const i = index + 1;
+                option(value=item.option ? item.option : i, selected=(checkedItem === i ? 'selected' : undefined))&attributes(item.props)=item.val
+        span.input-select__append #[+icon('icon-keyboard-down')]

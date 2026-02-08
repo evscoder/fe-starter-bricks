@@ -1,0 +1,5 @@
+block scripts
+    each item in concat.js
+        script(src=`${staticPath.js}/vendor/${item.name}${version}`)&attributes(item.props)
+    script(src=`${staticPath.js}/vendor.js${version}`)
+    script(src=`${staticPath.js}/main.js${version}`)

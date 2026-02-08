@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */;
+@use "styles/include/fonts" as *;
+@use "styles/include/variables" as *;
+@use "styles/include/scrollbar" as *;
+@use "styles/include/keyframes" as *;
+@use "styles/include/extends" as *;
+@use "styles/include/icons" as *;
+@use "styles/include/common" as *;
+@use "styles/include/typography" as *;
+@use "styles/include/page" as *;
+
+@use 'components/ui/ui.scss' as *;
+@use 'components/layout/layout.scss' as *;

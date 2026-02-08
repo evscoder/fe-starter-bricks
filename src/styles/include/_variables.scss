@@ -1,0 +1,46 @@
+@use "../plugins/include-media" as *;
+
+:root {
+    // Colors
+    --black: #202833;
+    --gray: #626263;
+    --white: #ffffff;
+    --blue: #278AFE;
+    --red: #FF5E5E;
+    --purple: rebeccapurple;
+
+    // Theme colors
+    --primary-color: var(--blue);
+    --secondary-color: var(--blue);
+    --background-color: var(--purple);
+	--text-color: var(--white);
+
+    // Timing functions
+    --t-time: 0.2s;
+    --t-base: var(--t-time) ease-in-out;
+    --t-smooth: cubic-bezier(.215, .61, .355, 1);
+    --t-elastic: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    // Fonts
+    --font-size-base: 16px;
+    --font-family-default: 'Open Sans', sans-serif;
+    --font-family-secondary: 'Open Sans', sans-serif;
+    --font-feature: 'pnum' on, 'lnum' on;
+
+    // Other
+    --base-container-width: 1200;
+    --container-gutter: 15px;
+    --container-width: calc(var(--base-container-width) * 1px + var(--container-gutter) * 2);
+
+    @media (width < bp('lg-tablet')) {
+
+    }
+
+    @media (width < bp('sm-tablet')) {
+
+    }
+}
+
+@media (prefers-color-scheme: dark), (prefers-color-scheme: light) {
+
+}

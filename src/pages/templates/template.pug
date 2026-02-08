@@ -1,0 +1,20 @@
+block components
+    include ../../components/config
+    include ../../components/mixins
+    include ../../components/head/head
+    include ../../components/layout/header/header
+    include ../../components/layout/footer/footer
+
+doctype html
+html.no-js(lang=lang)
+    +Head(head.default)
+    body()&attributes(page.attrs)
+        | %symbols%
+        .page-wrapper
+            block header
+                +Header()
+            main.page-content&attributes(page.content)
+                block content
+            block footer
+                +Footer()
+        include ../../components/scripts

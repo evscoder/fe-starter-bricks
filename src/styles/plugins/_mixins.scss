@@ -1,0 +1,43 @@
+@mixin textOverflow() {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@mixin textEllipsis($rows: 1) {
+    display: -webkit-box;
+    display: -moz-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $rows;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@mixin textBackground($color, $bg) {
+    color: $color;
+    background: $bg;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+@mixin flex-col {
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 100%;
+}
+
+@mixin flex-auto {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+}
+
+@mixin hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

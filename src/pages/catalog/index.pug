@@ -1,0 +1,12 @@
+extends ../templates/template
+append components
+    include ../../components/layout/home/home
+    -
+        page = {
+            id: 'Catalog',
+            title: 'Catalog Page',
+            attrs: {},
+            content: {}
+        }
+block content
+    +HomePage

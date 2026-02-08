@@ -1,0 +1,75 @@
+@use "sass:list";
+@use './sprite';
+
+$retina-groups: sprite.$retina-groups;
+
+@mixin sprite-image($sprite) {
+    background-image: url("./assets/img/sprite.png");
+}
+
+@mixin sprite-image2x($sprite) {
+    background-image: url("./assets/img/sprite@2x.png");
+}
+
+@mixin sprite-width($sprite) {
+    width: list.nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+    height: list.nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+    $sprite-offset-x: list.nth($sprite, 3);
+    $sprite-offset-y: list.nth($sprite, 4);
+    background-position: $sprite-offset-x $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+    $sprite-image: list.nth($sprite, 9);
+    background-image: url(./assets/img/#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+    @include sprite-image($sprite);
+    @include sprite-position($sprite);
+    @include sprite-width($sprite);
+    @include sprite-height($sprite);
+}
+
+@mixin sprite-background-size($sprite) {
+    $sprite-total-width: list.nth($sprite, 7);
+    $sprite-total-height: list.nth($sprite, 8);
+    background-size: $sprite-total-width $sprite-total-height;
+}
+
+@mixin sprites($sprites) {
+    @each $sprite in $sprites {
+        $sprite-name: list.nth($sprite, 10);
+        .#{$sprite-name} {
+            @include sprite($sprite);
+        }
+    }
+}
+
+@mixin retina-sprite($retina-group) {
+    $normal-sprite: list.nth($retina-group, 2);
+    $retina-sprite: list.nth($retina-group, 3);
+    @include sprite($normal-sprite);
+
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        @include sprite-image2x($retina-sprite);
+        @include sprite-background-size($normal-sprite);
+    }
+}
+
+@mixin retina-sprites($retina-groups) {
+    @each $retina-group in $retina-groups {
+        $sprite-name: list.nth($retina-group, 1);
+        .s-icon-#{$sprite-name} {
+            &::before {
+                @include retina-sprite($retina-group);
+            }
+        }
+    }
+}

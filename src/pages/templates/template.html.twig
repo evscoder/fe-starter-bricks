@@ -1,0 +1,52 @@
+{% set PATH = pathPrefix %}
+{% set lang = 'ru' %}
+
+{% set staticPath = {
+    css: PATH ~ 'assets/css',
+    js: PATH ~ 'assets/js',
+    img: PATH ~ 'assets/img/content'
+} %}
+
+{% set links = {
+    about: 'https://evstdev.vercel.app/about.html'
+} %}
+
+{% set images = {
+    Logo: '__static__assets/img/Logo.svg'
+} %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+    {% include "../../components/head/head.html.twig" with {
+        data: head.default,
+        page: page,
+        PATH: pathPrefix
+    } %}
+    <body>
+        %symbols%
+        <div class="page-wrapper">
+            {% block header %}{% endblock %}
+
+            <main class="page-content">
+                {% block content %}{% endblock %}
+            </main>
+
+            {% block footer %}
+                {% include "../../components/layout/footer/footer.html.twig" %}
+            {% endblock %}
+        </div>
+
+        {% block scripts %}
+            {% for item in concat.js %}
+                <script src="{{ staticPath.js }}/{{ item.name }}"
+                    {% for prop, val in item.props %}
+                        {{ prop }}="{{ val }}"
+                    {% endfor %}
+                >
+                </script>
+            {% endfor %}
+            <script src="{{ staticPath.js }}/vendor.js{{ version }}"></script>
+            <script src="{{ staticPath.js }}/main.js{{ version }}"></script>
+        {% endblock %}
+    </body>
+</html>

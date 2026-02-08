@@ -1,0 +1,13 @@
+@use "../plugins/mixins" as *;
+
+a {
+    color: inherit;
+
+    &:hover {
+        color: var(--primary-color);
+    }
+}
+
+.text-primary {
+    color: var(--primary-color);
+}

@@ -1,0 +1,43 @@
+{% set PATH = pathPrefix %}
+{% set lang = 'ru' %}
+
+{% set staticPath = {
+    css: PATH ~ 'assets/css',
+    js: PATH ~ 'assets/js',
+    img: PATH ~ 'assets/img/content'
+} %}
+
+{% set links = {
+    about: 'https://evstdev.vercel.app/about.html'
+} %}
+
+{% set images = {
+    Logo: '__static__assets/img/Logo.svg'
+} %}
+
+{% import "../../components/head/head.njk" as Head %}
+{% from "../../components/layout/footer/footer.njk" import Footer %}
+
+<!DOCTYPE html>
+<html lang="{{ Config.lang }}">
+    {{ Head.content(head.default, pathPrefix) }}
+    <body>
+        %symbols%
+        <div class="page-wrapper">
+            {% block header %}{% endblock %}
+            <main class="page-content">
+                {% block content %}{% endblock %}
+            </main>
+            {% block footer %}
+                {{ Footer(footer.default) }}
+            {% endblock %}
+        </div>
+        {% block scripts %}
+            {% for item in concat.js %}
+                <script src="{{ staticPath.js }}/assets/js/{{ item.name }}" {% for props, val in item.props %} {{ props }}="{{ val }}" {% endfor %}></script>
+            {% endfor %}
+            <script src="{{ staticPath.js }}/assets/js/vendor.js{{ version }}"></script>
+            <script src="{{ staticPath.js }}/assets/js/main.js{{ version }}"></script>
+        {% endblock %}
+    </body>
+</html>

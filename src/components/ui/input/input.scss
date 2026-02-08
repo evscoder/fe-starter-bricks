@@ -1,0 +1,20 @@
+.input {
+    -webkit-appearance: none;
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+
+    &::placeholder {
+        color: var(--gray);
+    }
+
+    &:hover,
+    &:focus {
+        border-color: var(--primary-color);
+    }
+
+    .error & {
+        border-color: var(--red);
+    }
+}

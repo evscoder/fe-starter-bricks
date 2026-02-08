@@ -1,0 +1,25 @@
+//- this object will store the names (keys) of our mixin blocks
+- const blocks = {};
+
+//- store block function
+mixin set(key)
+    - blocks[key] = this.block
+
+//- an example to demonstrate how it works
+    mixin layout
+      block
+      .main
+        - blocks.main()
+      .side
+        - blocks.side()
+
+//- mixin calls that blocks
+    +layout
+      +set('main')
+        p Main
+      +set('side')
+        p Side
+
+mixin icon(icon, width=undefined, height=width)
+    svg(class=`icon-${icon}` width=width, height=height)&attributes(attributes)
+        use(xlink:href=(symbolsInject ? `#${icon}` : `${PATH}assets/img/symbols.svg${version}#${icon}`))

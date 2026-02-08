@@ -1,0 +1,3 @@
+@function aspectRatio($w, $h) {
+    @return calc($h/($w/100)*1%);
+}

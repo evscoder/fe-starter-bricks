@@ -1,0 +1,49 @@
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+
+    &,
+    &::before,
+    &::after {
+        box-sizing: border-box;
+    }
+}
+
+html,
+body {
+    -webkit-overflow-scrolling: touch;
+}
+
+html {
+    height: 100%;
+    font-size: var(--font-size-base);
+}
+
+body {
+    display: grid;
+    grid-template-columns: 100%;
+    min-height: 100%;
+    margin: 0;
+    font-size: 1rem;
+    font-family: var(--font-family-default);
+    font-feature-settings: var(--font-feature, normal);
+    font-variant: normal;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    background-repeat: repeat;
+    background-position: 50% 0;
+    background-size: cover;
+}
+
+img,
+embed,
+video {
+    max-width: 100%;
+    height: auto;
+    border: none;
+}
+
+picture {
+    border-radius: inherit;
+}
