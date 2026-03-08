@@ -1,0 +1,46 @@
+.input-select {
+    position: relative;
+
+    &__input {
+        display: block;
+        width: 100%;
+        padding: 0 20px;
+        height: 56px;
+        border: 2px solid var(--secondary-color);
+        outline: none;
+        background-color: #fff;
+        border-radius: 0;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 130%;
+        transition: border-color 200ms ease-in-out;
+
+        &:focus {
+            border-color: var(--primary-color);
+        }
+    }
+
+    &__append {
+        position: absolute;
+        z-index: 1;
+        inset: 2px 2px 2px auto;
+        width: 40px;
+        display: grid;
+        place-content: center;
+        background-color: var(--white);
+        pointer-events: none;
+
+        svg {
+            display: block;
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            transition: transform var(--t-base);
+
+            .form-select.is-active & {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
