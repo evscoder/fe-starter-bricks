@@ -1,0 +1,19 @@
+export const isTouchDevices = () => {
+    return ('ontouchstart' in window) || (window.DocumentTouch && document instanceof window.DocumentTouch);
+};
+
+export const isMobile = () => {
+    return /iPhone|iPad|Android|blackberry|windows phone|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
+export const isIOS = () => {
+    return /iPad|iPhone|iPod/i.test(navigator.userAgent);
+};
+
+export const isPlatformClasses = () => {
+    const root = document.documentElement;
+
+    root.classList.toggle('is-touch', isTouchDevices());
+    root.classList.toggle('is-mobile', isMobile());
+    root.classList.toggle('ios', isIOS());
+};
