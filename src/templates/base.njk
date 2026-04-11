@@ -1,0 +1,23 @@
+{% import "./head/head.njk" as Head %}
+{% from "./layout/footer/footer.njk" import Footer %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+    {{ Head.content(head.default, pathPrefix) }}
+    <body>
+        %symbols%
+        <div class="page-wrapper">
+            {% block header %}{% endblock %}
+            <main class="page-content">
+                {% block content %}{% endblock %}
+            </main>
+            {% block footer %}
+                {{ Footer(footer.default) }}
+            {% endblock %}
+        </div>
+        {% block scripts %}
+            <script src="{{ staticPath.js }}/assets/js/vendor.js{{ version }}"></script>
+            <script src="{{ staticPath.js }}/assets/js/main.js{{ version }}"></script>
+        {% endblock %}
+    </body>
+</html>
