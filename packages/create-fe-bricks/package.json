@@ -1,6 +1,6 @@
 {
   "name": "create-fe-bricks",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "CLI for creating projects based on Fe Starter Bricks.",
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "README.md"
   ],
   "keywords": [
+    "cli",
     "starter",
     "frontend",
     "dev",
@@ -29,8 +30,10 @@
     "pug",
     "nunjucks",
     "twig",
+    "mjml",
     "typescript",
-    "cli"
+    "scss",
+    "tailwindcss"
   ],
   "author": "Your Name",
   "license": "MIT",

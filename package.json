@@ -7,10 +7,12 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "cd packages/create-fe-bricks && node bin/cli.js",
-    "publish:cli": "cd packages/create-fe-bricks && npm version patch && npm publish --access public"
+    "dev": "(cd packages/create-fe-bricks && node bin/cli.js)",
+    "patch": "npm --prefix packages/create-fe-bricks version patch",
+    "publish:cli": "npm --prefix packages/create-fe-bricks publish --access public"
   },
   "keywords": [
+    "cli",
     "starter",
     "frontend",
     "dev",
@@ -20,7 +22,10 @@
     "pug",
     "nunjucks",
     "twig",
-    "typescript"
+    "mjml",
+    "typescript",
+    "scss",
+    "tailwindcss"
   ],
   "license": "MIT",
   "engines": {

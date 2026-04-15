@@ -35,6 +35,10 @@ const copyTemplateLayer = async ({ templatesDir, projectPath, layerName, sourceF
         typeScript: await confirm({
             message: 'Use TypeScript?',
             default: true
+        }),
+        emailsBuild: await confirm({
+            message: 'Build MJML emails?',
+            default: false
         })
     };
 
@@ -78,6 +82,11 @@ const copyTemplateLayer = async ({ templatesDir, projectPath, layerName, sourceF
     configContent = configContent.replace(
         /typeScript: (true|false)/,
         `typeScript: ${answers.typeScript}`
+    );
+
+    configContent = configContent.replace(
+        /emailsBuild: (true|false)/,
+        `emailsBuild: ${answers.emailsBuild}`
     );
 
     await fs.writeFile(configPath, configContent);
