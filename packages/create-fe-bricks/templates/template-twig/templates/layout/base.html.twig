@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+    {% include "./head/head.html.twig" with {
+        data: head.default,
+        page: page,
+        PATH: pathPrefix
+    } %}
+    <body>
+        %symbols%
+        <div class="page-wrapper">
+            {% block header %}{% endblock %}
+
+            <main class="page-content">
+                {% block content %}{% endblock %}
+            </main>
+
+            {% block footer %}
+                {% include "../components/footer/index.html.twig" %}
+            {% endblock %}
+        </div>
+        {% block scripts %}
+            <script src="{{ staticPath.js }}/vendor.js{{ version }}"></script>
+            <script src="{{ staticPath.js }}/main.js{{ version }}"></script>
+        {% endblock %}
+    </body>
+</html>

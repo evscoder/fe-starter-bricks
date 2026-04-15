@@ -1,0 +1,29 @@
+{
+  "name": "fe-starter-bricks-monorepo",
+  "version": "1.0.1",
+  "private": true,
+  "description": "Monorepository for Fe Starter Bricks — templates and a CLI generator.",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "cd packages/create-fe-bricks && node bin/cli.js",
+    "publish:cli": "cd packages/create-fe-bricks && npm version patch && npm publish --access public"
+  },
+  "keywords": [
+    "starter",
+    "frontend",
+    "dev",
+    "template",
+    "gulp",
+    "webpack",
+    "pug",
+    "nunjucks",
+    "twig",
+    "typescript"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.12.0"
+  }
+}

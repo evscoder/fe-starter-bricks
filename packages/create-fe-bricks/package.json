@@ -1,0 +1,45 @@
+{
+  "name": "create-fe-bricks",
+  "version": "1.0.10",
+  "description": "CLI for creating projects based on Fe Starter Bricks.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evscoder/fe-starter-bricks.git"
+  },
+  "homepage": "https://github.com/evscoder/fe-starter-bricks",
+  "bugs": {
+    "url": "https://github.com/evscoder/fe-starter-bricks/issues"
+  },
+  "type": "module",
+  "bin": {
+    "create-fe-bricks": "bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "templates",
+    "README.md"
+  ],
+  "keywords": [
+    "starter",
+    "frontend",
+    "dev",
+    "template",
+    "gulp",
+    "webpack",
+    "pug",
+    "nunjucks",
+    "twig",
+    "typescript",
+    "cli"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "@inquirer/prompts": "^8.4.1",
+    "chalk": "^5.6.2",
+    "fs-extra": "^11.3.4"
+  },
+  "engines": {
+    "node": ">=20.12.0"
+  }
+}

@@ -1,0 +1,12 @@
+<mj-section padding="0px 30px 52px">
+  <mj-column padding-top="20px" border-top="2px solid #EEF2F5">
+    <mj-table mj-class="text-small" align="center">
+      <tr>
+        <td style="padding: 0px 0px 4px" class="text-center">This email was sent to your as a registered member of Company. To unsubscribe <a href="#" class="text-primary" target="_blank">click here.</a> <br /> Use of the service and website is subject to our <a href="#" class="text-primary" target="_blank">Terms of Service</a> and <a href="#" class="text-primary" target="_blank">Privacy Policy.</a></td>
+      </tr>
+      <tr>
+        <td style="padding: 4px 0px" class="text-center">© 2021 Company. All rights reserved.</td>
+      </tr>
+    </mj-table>
+  </mj-column>
+</mj-section>

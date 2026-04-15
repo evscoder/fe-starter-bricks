@@ -1,0 +1,12 @@
+extends ../layout/base
+append components
+    include ../container/home/index
+    -
+        page = {
+            id: 'home',
+            title: 'Starter Boilerplate',
+            attrs: {},
+            content: {}
+        }
+block content
+    +HomePage

@@ -1,0 +1,20 @@
+block components
+    include head/head
+    include ../components/mixins
+    include ../components/header/index
+    include ../components/footer/index
+
+doctype html
+html.no-js(lang=lang)
+    +Head(head.default)
+    body()&attributes(page.attrs)
+        | %symbols%
+        .page-wrapper
+            block header
+            main.page-content&attributes(page.content)
+                block content
+            block footer
+                +Footer()
+        block bottom
+            script(src=`${staticPath.js}/vendor.js${version}`)
+            script(src=`${staticPath.js}/main.js${version}`)
