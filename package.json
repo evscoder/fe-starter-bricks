@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "(cd packages/create-fe-bricks && node bin/cli.js)",
     "patch": "npm --prefix packages/create-fe-bricks version patch",
-    "publish:cli": "npm --prefix packages/create-fe-bricks publish --access public"
+    "publish:cli": "npm publish ./packages/create-fe-bricks --access public"
   },
   "keywords": [
     "cli",
