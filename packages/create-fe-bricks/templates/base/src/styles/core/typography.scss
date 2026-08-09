@@ -1,11 +1,1 @@
 @use "../plugins/mixins" as *;
-
-a {
-    &:hover {
-        color: var(--primary-color);
-    }
-}
-
-.text-primary {
-    color: var(--primary-color);
-}

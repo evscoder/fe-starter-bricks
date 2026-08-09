@@ -1,21 +1,10 @@
 @use '../plugins/sprite-mixin' as sprite;
 
-[class^="icon"] {
+svg[class^="icon-"] {
     display: inline-block;
     vertical-align: middle;
     line-height: 1;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
 
-    &:not([fill="none"]) {
-        fill: currentColor;
-    }
-}
-
-svg[class^="icon-"] {
-    display: inline-block;
-    line-height: 1;
 
     &:not([fill="none"]) {
         fill: currentColor;
@@ -30,6 +19,9 @@ svg.icon-stroke {
     vertical-align: middle;
     display: inline-block;
     line-height: 1;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
 
     &::before {
         content: "";

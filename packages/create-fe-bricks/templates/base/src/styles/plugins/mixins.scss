@@ -3,7 +3,7 @@
     overflow: hidden;
 }
 
-@mixin text-ellipsis($rows: 1) {
+@mixin text-clamp($rows: 1) {
     display: -webkit-box;
     display: -moz-box;
     -webkit-box-orient: vertical;
@@ -19,13 +19,4 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-fill-color: transparent;
-}
-
-@mixin scrollbar-invisible {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
 }

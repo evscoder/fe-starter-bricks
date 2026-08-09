@@ -16,23 +16,20 @@ const getEntryPaths = (entry) => {
 };
 
 const createScripts = () => {
-    const styles = () => {
-        return src(getEntryPaths(stylesEntry))
-            .pipe($.plumber(notifyErr()))
-            .pipe($.webpackStream(stylesConfig))
-            .pipe(dest(stylesConfig.output.path));
-    };
-
-    const scripts = () => {
-        return src(getEntryPaths(scriptsEntry))
-            .pipe($.plumber(notifyErr()))
-            .pipe($.webpackStream(webpackConfig))
-            .pipe(dest(webpackConfig.output.path));
-    };
-
     return {
-        styles,
-        scripts
+        styles: () => {
+            return src(getEntryPaths(stylesEntry))
+                .pipe($.plumber(notifyErr()))
+                .pipe($.webpackStream(stylesConfig))
+                .pipe(dest(stylesConfig.output.path));
+        },
+
+        scripts: () => {
+            return src(getEntryPaths(scriptsEntry))
+                .pipe($.plumber(notifyErr()))
+                .pipe($.webpackStream(webpackConfig))
+                .pipe(dest(webpackConfig.output.path));
+        }
     };
 };
 

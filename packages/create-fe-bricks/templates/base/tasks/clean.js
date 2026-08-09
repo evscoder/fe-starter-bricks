@@ -3,14 +3,12 @@ import userConfig from '../user.config.js';
 const { folderBuild } = userConfig;
 
 const createClean = () => {
-    const cleanBuild = () => {
-        return $.del([
-            `${folderBuild}/**/*`
-        ]);
-    };
-
     return {
-        cleanBuild
+        cleanBuild: () => {
+            return $.del([
+                `${folderBuild}/**/*`
+            ]);
+        }
     };
 };
 
