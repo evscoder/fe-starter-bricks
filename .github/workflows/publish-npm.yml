@@ -1,0 +1,88 @@
+name: Publish npm package
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-npm
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Bump package version
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          PACKAGE_DIR="packages/create-fe-bricks"
+          PACKAGE_NAME="$(node -p "require('./${PACKAGE_DIR}/package.json').name")"
+          CURRENT_VERSION="$(node -p "require('./${PACKAGE_DIR}/package.json').version")"
+          LATEST_VERSION="$(npm view "${PACKAGE_NAME}" version 2>/dev/null || true)"
+
+          NEXT_VERSION="$(node -e "
+            const current = '${CURRENT_VERSION}'.split('.').map(Number);
+            const latest = '${LATEST_VERSION}'.split('.').map(Number);
+            const cmp = (a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2];
+
+            if (!'${LATEST_VERSION}' || cmp(current, latest) > 0) {
+              console.log('${CURRENT_VERSION}');
+            } else {
+              latest[2] += 1;
+              console.log(latest.join('.'));
+            }
+          ")"
+
+          if [ "${NEXT_VERSION}" != "${CURRENT_VERSION}" ]; then
+            npm --workspace "${PACKAGE_NAME}" version "${NEXT_VERSION}" --no-git-tag-version
+            echo "version_changed=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "version_changed=false" >> "${GITHUB_OUTPUT}"
+          fi
+
+          echo "package_name=${PACKAGE_NAME}" >> "${GITHUB_OUTPUT}"
+          echo "next_version=${NEXT_VERSION}" >> "${GITHUB_OUTPUT}"
+
+      - name: Verify package contents
+        run: npm pack ./packages/create-fe-bricks --dry-run
+
+      - name: Commit version bump
+        if: steps.version.outputs.version_changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packages/create-fe-bricks/package.json package-lock.json
+          git commit -m "chore(release): publish ${{ steps.version.outputs.package_name }} v${{ steps.version.outputs.next_version }} [skip ci]"
+          git push
+
+      - name: Publish to npm
+        run: npm publish ./packages/create-fe-bricks --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
