@@ -213,45 +213,6 @@ const updatePackageJson = async ({
     });
 };
 
-const updatePackageLock = async ({
-     projectPath,
-     projectName
-}) => {
-    const lockPath = path.join(projectPath, 'package-lock.json');
-
-    if (!(await fs.pathExists(lockPath))) {
-        return;
-    }
-
-    const packageLock = await fs.readJson(lockPath);
-
-    packageLock.name = projectName;
-    packageLock.version = '1.0.0';
-
-    if (packageLock.packages?.['']) {
-        packageLock.packages[''].name = projectName;
-        packageLock.packages[''].version = '1.0.0';
-    }
-
-    await fs.writeJson(lockPath, packageLock, {
-        spaces: 2,
-        EOL: '\n'
-    });
-};
-
-const removeUnusedEmailTemplates = async (projectPath) => {
-    const emailsPath = path.join(
-        projectPath,
-        'src',
-        'templates',
-        'emails'
-    );
-
-    if (await fs.pathExists(emailsPath)) {
-        await fs.remove(emailsPath);
-    }
-};
-
 const askQuestions = async () => {
     const projectName = await input({
         message: 'Project folder name:',
@@ -383,11 +344,6 @@ const createProject = async (answers) => {
     });
 
     await updatePackageJson({
-        projectPath,
-        projectName: answers.projectName
-    });
-
-    await updatePackageLock({
         projectPath,
         projectName: answers.projectName
     });
