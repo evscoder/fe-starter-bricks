@@ -313,7 +313,9 @@ const createProject = async (answers) => {
     const sourceFolder = 'src';
 
     if (path.dirname(projectPath) !== cwd) {
-        throw new Error('Project must be created in the current directory.');
+        throw new Error(
+            'Project must be created in the current directory.'
+        );
     }
 
     const baseTemplatePath = path.join(templatesDir, 'base');
@@ -321,7 +323,9 @@ const createProject = async (answers) => {
     await ensureTemplateExists(baseTemplatePath, 'Base template');
     await ensureDestinationIsAvailable(projectPath);
 
-    console.log(chalk.yellow('\n📁 Copying the base structure...'));
+    console.log(
+        chalk.yellow('\n📁 Copying the base structure...')
+    );
 
     await fs.copy(baseTemplatePath, projectPath, {
         overwrite: false,
@@ -354,7 +358,22 @@ const createProject = async (answers) => {
         sourceFolder
     });
 
-    console.log(chalk.yellow('⚙️  Applying project settings...'));
+    if (answers.emailsBuild) {
+        console.log(
+            chalk.yellow('📁 Adding MJML email templates...')
+        );
+
+        await copyTemplateLayer({
+            templatesDir,
+            projectPath,
+            layerName: 'template-mjml',
+            sourceFolder: path.join('src', 'templates')
+        });
+    }
+
+    console.log(
+        chalk.yellow('⚙️  Applying project settings...')
+    );
 
     await updateUserConfig({
         projectPath,
@@ -372,10 +391,6 @@ const createProject = async (answers) => {
         projectPath,
         projectName: answers.projectName
     });
-
-    if (!answers.emailsBuild) {
-        await removeUnusedEmailTemplates(projectPath);
-    }
 
     return {
         projectPath,
