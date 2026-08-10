@@ -1,37 +1,6 @@
-import { isPlatformClasses } from './utils/is-platform.js';
-import uiComponent from './ui/index.js';
-import modulesComponent from './modules/index.js';
-class App {
-    onStart = () => {
-        this.init();
-        this.afterLoad();
-    };
+import { BaseApp, bootstrapApp } from './core/core.js';
+import createModules from './modules/index.js';
 
-    markLoaded = () => {
-        if (document.body) {
-            document.body.classList.add('load');
-        }
-    };
+class MainComponent extends BaseApp {}
 
-    init() {
-        isPlatformClasses();
-        uiComponent();
-        modulesComponent();
-    }
-
-    afterLoad() {
-        if (document.readyState === 'complete') {
-            this.markLoaded();
-        } else {
-            window.addEventListener('load', this.markLoaded, { once: true });
-        }
-    }
-}
-
-const app = new App();
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', app.onStart, { once: true });
-} else {
-    app.onStart();
-}
+export const app = bootstrapApp(MainComponent, createModules);

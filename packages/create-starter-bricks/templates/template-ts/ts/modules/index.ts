@@ -5,21 +5,20 @@ import { IFactory } from '../interfaces/factory';
 const createModules = (): IFactory => {
     const factory = createFactory();
 
-    const onInit = (): void => {
-        factory.create(Header);
-    };
-
     return {
-        onInit,
-        destroy: factory.destroy
+        onInit: (): void => {
+            factory.create(Header);
+        },
+        destroy: (): void => {
+            factory.destroy();
+        }
     };
 };
 
-const modulesComponent = (): IFactory => {
+const initModules = (): IFactory => {
     const factory = createModules();
     factory.onInit();
-
     return factory;
 };
 
-export default modulesComponent;
+export default initModules;

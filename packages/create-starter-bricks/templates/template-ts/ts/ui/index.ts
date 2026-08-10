@@ -4,20 +4,20 @@ import { IFactory } from '../interfaces/factory';
 const createUi = (): IFactory => {
     const factory = createFactory();
 
-    const onInit = (): void => {
-    };
-
     return {
-        onInit,
-        destroy: factory.destroy
+        onInit: (): void => {
+        },
+        destroy: (): void => {
+            factory.destroy();
+        }
     };
 };
 
-const uiComponent = (): IFactory => {
+const uiModules = (): IFactory => {
     const factory = createUi();
     factory.onInit();
-
     return factory;
 };
 
-export default uiComponent;
+export default uiModules;
+

@@ -2,17 +2,21 @@ import createFactory from '../utils/create-factory.js';
 import Header from './header.js';
 const createModules = () => {
     const factory = createFactory();
-    const onInit = () => {
-        factory.create(Header);
-    };
+
     return {
-        onInit,
-        destroy: factory.destroy
+        onInit: () => {
+            factory.create(Header);
+        },
+        destroy: () => {
+            factory.destroy();
+        }
     };
 };
-const modulesComponent = () => {
+
+const initModules = () => {
     const factory = createModules();
     factory.onInit();
     return factory;
 };
-export default modulesComponent;
+
+export default initModules;
