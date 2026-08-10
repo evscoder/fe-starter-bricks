@@ -13,7 +13,7 @@ export default (templateLocals = {}) => {
         lang: 'ru',
         staticPath,
         links: {
-            about: 'https://evstdev.vercel.app/about.html'
+            about: 'https://evstdev.vercel.app'
         },
         images: {
             logo: `${staticPath.img}/Logo.svg`
