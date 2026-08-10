@@ -4,103 +4,429 @@ import { confirm, input, select } from '@inquirer/prompts';
 import chalk from 'chalk';
 import fs from 'fs-extra';
 import path from 'node:path';
+import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const copyTemplateLayer = async ({ templatesDir, projectPath, layerName, sourceFolder }) => {
+const TEMPLATE_ENGINES = ['pug', 'nunjucks', 'twig'];
+const DEFAULT_PROJECT_NAME = 'my-new-project';
+
+const WINDOWS_RESERVED_NAMES = new Set([
+    'con',
+    'prn',
+    'aux',
+    'nul',
+    'com1',
+    'com2',
+    'com3',
+    'com4',
+    'com5',
+    'com6',
+    'com7',
+    'com8',
+    'com9',
+    'lpt1',
+    'lpt2',
+    'lpt3',
+    'lpt4',
+    'lpt5',
+    'lpt6',
+    'lpt7',
+    'lpt8',
+    'lpt9'
+]);
+
+const validateProjectName = (value) => {
+    const projectName = value.trim();
+
+    if (!projectName) {
+        return 'Project name is required.';
+    }
+
+    if (projectName === '.' || projectName === '..') {
+        return 'Project name cannot be "." or "..".';
+    }
+
+    if (projectName.includes('/') || projectName.includes('\\')) {
+        return 'Enter a folder name, not a path.';
+    }
+
+    if (path.isAbsolute(projectName)) {
+        return 'Absolute paths are not allowed.';
+    }
+
+    if (projectName !== projectName.toLowerCase()) {
+        return 'Project name must use lowercase letters.';
+    }
+
+    if (!/^[a-z0-9][a-z0-9._-]*$/.test(projectName)) {
+        return [
+            'Project name may contain only lowercase letters,',
+            'numbers, dots, hyphens and underscores.'
+        ].join(' ');
+    }
+
+    if (projectName.endsWith('.') || projectName.endsWith('-')) {
+        return 'Project name cannot end with a dot or hyphen.';
+    }
+
+    if (WINDOWS_RESERVED_NAMES.has(projectName.toLowerCase())) {
+        return `"${projectName}" is a reserved system name.`;
+    }
+
+    if (projectName.length > 214) {
+        return 'Project name must not exceed 214 characters.';
+    }
+
+    return true;
+};
+
+const ensureTemplateExists = async (templatePath, label) => {
+    if (!(await fs.pathExists(templatePath))) {
+        throw new Error(`${label} was not found: ${templatePath}`);
+    }
+};
+
+const ensureDestinationIsAvailable = async (projectPath) => {
+    if (!(await fs.pathExists(projectPath))) {
+        return;
+    }
+
+    const stat = await fs.stat(projectPath);
+
+    if (!stat.isDirectory()) {
+        throw new Error(
+            `Destination "${projectPath}" exists and is not a directory.`
+        );
+    }
+
+    const files = await fs.readdir(projectPath);
+
+    if (files.length > 0) {
+        throw new Error(
+            `Destination directory "${projectPath}" is not empty.`
+        );
+    }
+};
+
+const copyTemplateLayer = async ({
+                                     templatesDir,
+                                     projectPath,
+                                     layerName,
+                                     sourceFolder
+                                 }) => {
     const sourcePath = path.join(templatesDir, layerName);
     const targetPath = path.join(projectPath, sourceFolder);
 
-    await fs.copy(sourcePath, targetPath, { overwrite: true });
+    await ensureTemplateExists(
+        sourcePath,
+        `Template layer "${layerName}"`
+    );
+
+    await fs.copy(sourcePath, targetPath, {
+        overwrite: true,
+        errorOnExist: false
+    });
 };
 
-(async () => {
-    console.log(chalk.blue('🚀 Fe Starter Bricks — Create a project'));
+const replaceConfigValue = ({
+                                content,
+                                pattern,
+                                replacement,
+                                optionName
+                            }) => {
+    if (!pattern.test(content)) {
+        throw new Error(
+            `Option "${optionName}" was not found in user.config.js.`
+        );
+    }
 
-    const answers = {
-        projectName: await input({
-            message: 'Project folder name:',
-            default: 'my-new-project'
-        }),
-        templateEngine: await select({
-            message: 'Which template engine do you want to use?',
-            choices: [
-                { name: 'Pug', value: 'pug' },
-                { name: 'Nunjucks', value: 'nunjucks' },
-                { name: 'Twig', value: 'twig' }
-            ]
-        }),
-        typeScript: await confirm({
-            message: 'Use TypeScript?',
-            default: true
-        }),
-        emailsBuild: await confirm({
-            message: 'Build MJML emails?',
-            default: false
-        })
+    return content.replace(pattern, replacement);
+};
+
+const updateUserConfig = async ({
+                                    projectPath,
+                                    templateEngine,
+                                    typeScript,
+                                    emailsBuild
+                                }) => {
+    const configPath = path.join(projectPath, 'user.config.js');
+
+    await ensureTemplateExists(configPath, 'Configuration file');
+
+    let content = await fs.readFile(configPath, 'utf8');
+
+    content = replaceConfigValue({
+        content,
+        pattern: /templateEngine:\s*['"`](pug|nunjucks|twig)['"`]/,
+        replacement: `templateEngine: '${templateEngine}'`,
+        optionName: 'templateEngine'
+    });
+
+    content = replaceConfigValue({
+        content,
+        pattern: /typeScript:\s*(true|false)/,
+        replacement: `typeScript: ${typeScript}`,
+        optionName: 'typeScript'
+    });
+
+    content = replaceConfigValue({
+        content,
+        pattern: /emailsBuild:\s*(true|false)/,
+        replacement: `emailsBuild: ${emailsBuild}`,
+        optionName: 'emailsBuild'
+    });
+
+    await fs.writeFile(configPath, content, 'utf8');
+};
+
+const updatePackageJson = async ({
+                                     projectPath,
+                                     projectName
+                                 }) => {
+    const packagePath = path.join(projectPath, 'package.json');
+
+    await ensureTemplateExists(packagePath, 'package.json');
+
+    const packageJson = await fs.readJson(packagePath);
+
+    packageJson.name = projectName;
+    packageJson.version = '1.0.0';
+    packageJson.private = true;
+
+    const exportedFile = packageJson.exports
+        ? path.join(projectPath, packageJson.exports)
+        : null;
+
+    if (
+        exportedFile
+        && !(await fs.pathExists(exportedFile))
+    ) {
+        delete packageJson.exports;
+    }
+
+    await fs.writeJson(packagePath, packageJson, {
+        spaces: 2,
+        EOL: '\n'
+    });
+};
+
+const updatePackageLock = async ({
+     projectPath,
+     projectName
+}) => {
+    const lockPath = path.join(projectPath, 'package-lock.json');
+
+    if (!(await fs.pathExists(lockPath))) {
+        return;
+    }
+
+    const packageLock = await fs.readJson(lockPath);
+
+    packageLock.name = projectName;
+    packageLock.version = '1.0.0';
+
+    if (packageLock.packages?.['']) {
+        packageLock.packages[''].name = projectName;
+        packageLock.packages[''].version = '1.0.0';
+    }
+
+    await fs.writeJson(lockPath, packageLock, {
+        spaces: 2,
+        EOL: '\n'
+    });
+};
+
+const removeUnusedEmailTemplates = async (projectPath) => {
+    const emailsPath = path.join(
+        projectPath,
+        'src',
+        'templates',
+        'emails'
+    );
+
+    if (await fs.pathExists(emailsPath)) {
+        await fs.remove(emailsPath);
+    }
+};
+
+const askQuestions = async () => {
+    const projectName = await input({
+        message: 'Project folder name:',
+        default: DEFAULT_PROJECT_NAME,
+        validate: validateProjectName,
+        transformer: (value) => value.trim()
+    });
+
+    const templateEngine = await select({
+        message: 'Which template engine do you want to use?',
+        choices: [
+            {
+                name: 'Twig',
+                value: 'twig',
+                description: 'Recommended for Symfony and PHP projects.'
+            },
+            {
+                name: 'Pug',
+                value: 'pug',
+                description: 'Concise HTML templating syntax.'
+            },
+            {
+                name: 'Nunjucks',
+                value: 'nunjucks',
+                description: 'Jinja-inspired JavaScript templates.'
+            }
+        ],
+        default: 'twig'
+    });
+
+    const typeScript = await confirm({
+        message: 'Use TypeScript?',
+        default: true
+    });
+
+    const emailsBuild = await confirm({
+        message: 'Include MJML email templates?',
+        default: false
+    });
+
+    return {
+        projectName: projectName.trim(),
+        templateEngine,
+        typeScript,
+        emailsBuild
     };
+};
 
-    const projectPath = path.join(process.cwd(), answers.projectName);
-    const templatesDir = path.join(__dirname, '..', 'templates');
+const createProject = async (answers) => {
+    if (!TEMPLATE_ENGINES.includes(answers.templateEngine)) {
+        throw new Error(
+            `Unsupported template engine: ${answers.templateEngine}`
+        );
+    }
+
+    const cwd = process.cwd();
+    const templatesDir = path.resolve(__dirname, '..', 'templates');
+    const projectPath = path.resolve(cwd, answers.projectName);
     const sourceFolder = 'src';
 
-    console.log(chalk.yellow('📁 Copying the base structure...'));
-    await fs.copy(path.join(templatesDir, 'base'), projectPath);
+    if (path.dirname(projectPath) !== cwd) {
+        throw new Error('Project must be created in the current directory.');
+    }
 
-    console.log(chalk.yellow(`📁 Adding template engine: ${answers.templateEngine}`));
-    await copyTemplateLayer(
-        {
-            templatesDir,
-            projectPath,
-            layerName: `template-${answers.templateEngine}`,
-            sourceFolder
-        }
+    const baseTemplatePath = path.join(templatesDir, 'base');
+
+    await ensureTemplateExists(baseTemplatePath, 'Base template');
+    await ensureDestinationIsAvailable(projectPath);
+
+    console.log(chalk.yellow('\n📁 Copying the base structure...'));
+
+    await fs.copy(baseTemplatePath, projectPath, {
+        overwrite: false,
+        errorOnExist: true
+    });
+
+    console.log(
+        chalk.yellow(
+            `📁 Adding template engine: ${answers.templateEngine}`
+        )
     );
+
+    await copyTemplateLayer({
+        templatesDir,
+        projectPath,
+        layerName: `template-${answers.templateEngine}`,
+        sourceFolder
+    });
 
     const scriptChoice = answers.typeScript ? 'ts' : 'js';
-    console.log(chalk.yellow(`📁 Adding scripts: ${scriptChoice}`));
-    await copyTemplateLayer(
-        {
-            templatesDir,
-            projectPath,
-            layerName: `template-${scriptChoice}`,
-            sourceFolder
-        }
+
+    console.log(
+        chalk.yellow(`📁 Adding scripts: ${scriptChoice}`)
     );
 
-    console.log(chalk.yellow('⚙️  Applying settings in user.config.js...'));
-    const configPath = path.join(projectPath, 'user.config.js');
-    let configContent = await fs.readFile(configPath, 'utf-8');
+    await copyTemplateLayer({
+        templatesDir,
+        projectPath,
+        layerName: `template-${scriptChoice}`,
+        sourceFolder
+    });
 
-    configContent = configContent.replace(
-        /templateEngine: ['"`](pug|nunjucks|twig)['"`]/,
-        `templateEngine: '${answers.templateEngine}'`
+    console.log(chalk.yellow('⚙️  Applying project settings...'));
+
+    await updateUserConfig({
+        projectPath,
+        templateEngine: answers.templateEngine,
+        typeScript: answers.typeScript,
+        emailsBuild: answers.emailsBuild
+    });
+
+    await updatePackageJson({
+        projectPath,
+        projectName: answers.projectName
+    });
+
+    await updatePackageLock({
+        projectPath,
+        projectName: answers.projectName
+    });
+
+    if (!answers.emailsBuild) {
+        await removeUnusedEmailTemplates(projectPath);
+    }
+
+    return {
+        projectPath,
+        projectName: answers.projectName
+    };
+};
+
+const printSuccess = ({ projectPath, projectName }) => {
+    console.log(
+        chalk.green('\n✅ Project created successfully!')
     );
 
-    configContent = configContent.replace(
-        /typeScript: (true|false)/,
-        `typeScript: ${answers.typeScript}`
+    console.log(chalk.dim(`   ${projectPath}`));
+
+    console.log(chalk.cyan('\n🚀 Next steps:\n'));
+    console.log(`   cd ${projectName}`);
+    console.log('   npm install');
+    console.log('   npm start\n');
+};
+
+const main = async () => {
+    console.log(
+        chalk.blue.bold('\n🚀 Fe Starter Bricks — Create a project\n')
     );
 
-    configContent = configContent.replace(
-        /emailsBuild: (true|false)/,
-        `emailsBuild: ${answers.emailsBuild}`
+    const answers = await askQuestions();
+    const result = await createProject(answers);
+
+    printSuccess(result);
+};
+
+main().catch((error) => {
+    if (error?.name === 'ExitPromptError') {
+        console.log(chalk.yellow('\n\nOperation cancelled.\n'));
+        process.exitCode = 0;
+        return;
+    }
+
+    console.error(
+        chalk.red.bold('\n❌ Failed to create the project.\n')
     );
 
-    await fs.writeFile(configPath, configContent);
+    console.error(chalk.red(error.message));
 
-    const packagePath = path.join(projectPath, 'package.json');
-    const packageJson = await fs.readJson(packagePath);
-    packageJson.name = answers.projectName;
-    packageJson.version = '1.0.0';
-    await fs.writeJson(packagePath, packageJson, { spaces: 2 });
+    if (process.env.DEBUG) {
+        console.error(chalk.dim(error.stack));
+    }
 
-    console.log(chalk.green('\n✅ Project created successfully!'));
-    console.log(chalk.cyan(`\n🚀 Next steps:`));
-    console.log(`   cd ${answers.projectName}`);
-    console.log(`   npm install`);
-    console.log(`   npm start\n`);
+    console.log(
+        chalk.dim('\nRun with DEBUG=1 to display the full error.\n')
+    );
 
-})();
+    process.exitCode = 1;
+});
