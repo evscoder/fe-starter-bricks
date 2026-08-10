@@ -1,4 +1,4 @@
-![package](https://img.shields.io/badge/package-fe--starter--bricks-blue)
+![package](https://img.shields.io/badge/package-starter--bricks-blue)
 ![version](https://img.shields.io/badge/version-0.0.0-informational)
 ![license](https://img.shields.io/badge/license-MIT-green)
 ![repository](https://img.shields.io/badge/repository-GitHub-181717)
@@ -14,27 +14,27 @@ Template-first frontend starter for multipage websites, CMS themes, Symfony view
 Use your preferred package manager:
 
 ```bash
-npm create fe-bricks@latest
+npm create starter-bricks@latest
 ```
 
 ```bash
-npx create-fe-bricks@latest
+npx create-starter-bricks@latest
 ```
 
 ```bash
-yarn create fe-bricks@latest
+yarn create starter-bricks@latest
 ```
 
 ```bash
-pnpm create fe-bricks@latest
+pnpm create starter-bricks@latest
 ```
 
 ```bash
-bun create fe-bricks@latest
+bun create starter-bricks@latest
 ```
 
 ```bash
-bunx create-fe-bricks@latest
+bunx create-starter-bricks@latest
 ```
 
 After the project is created:

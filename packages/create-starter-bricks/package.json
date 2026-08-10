@@ -1,5 +1,5 @@
 {
-  "name": "create-fe-bricks",
+  "name": "create-starter-bricks",
   "version": "1.0.13",
   "description": "CLI for creating projects based on Fe Starter Bricks.",
   "repository": {
@@ -12,7 +12,7 @@
   },
   "type": "module",
   "bin": {
-    "create-fe-bricks": "bin/cli.js"
+    "create-starter-bricks": "bin/cli.js"
   },
   "files": [
     "bin",
