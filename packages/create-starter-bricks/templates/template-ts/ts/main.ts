@@ -1,5 +1,5 @@
-import { BaseApp, bootstrapApp } from './core/core.js';
-import modulesComponent from './modules/index.js';
+import { BaseApp, bootstrapApp } from './core/core';
+import modulesComponent from './modules/index';
 
 class MainComponent extends BaseApp {}
 

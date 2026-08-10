@@ -1,13 +1,13 @@
-import uiModules from '../ui/index.js';
-import { isPlatformClasses } from '../utils/is-platform.js';
-import { IFactory } from '../interfaces/factory.js';
+import uiModules from '../ui/index';
+import { isPlatformClasses } from '../utils/is-platform';
+import { IFactory } from '../interfaces/factory';
 
 export class BaseApp {
     private readonly createModules: () => IFactory;
 
-    private _ui: IFactory | null = null;
+    private ui: IFactory | null = null;
 
-    private _modules: IFactory | null = null;
+    private modules: IFactory | null = null;
 
     constructor(createModules: () => IFactory) {
         this.createModules = createModules;
@@ -20,21 +20,21 @@ export class BaseApp {
 
     init(): void {
         isPlatformClasses();
-        this._ui = uiModules();
-        this._modules = this.createModules();
+        this.ui = uiModules();
+        this.modules = this.createModules();
     }
 
     destroy(): void {
-        if (this._ui && typeof this._ui.destroy === 'function') {
-            this._ui.destroy();
+        if (this.ui && typeof this.ui.destroy === 'function') {
+            this.ui.destroy();
         }
 
-        if (this._modules && typeof this._modules.destroy === 'function') {
-            this._modules.destroy();
+        if (this.modules && typeof this.modules.destroy === 'function') {
+            this.modules.destroy();
         }
 
-        this._ui = null;
-        this._modules = null;
+        this.ui = null;
+        this.modules = null;
     }
 
     afterLoad(): void {
@@ -52,9 +52,9 @@ export class BaseApp {
 
 export function bootstrapApp<T extends BaseApp>(
     AppClass: new (createModules: () => IFactory) => T,
-    createModules: () => IFactory
+    modulesFactory: () => IFactory
 ): T {
-    const app = new AppClass(createModules);
+    const app = new AppClass(modulesFactory);
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', app.onStart, { once: true });

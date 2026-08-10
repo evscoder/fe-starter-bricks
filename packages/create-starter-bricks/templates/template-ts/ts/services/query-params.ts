@@ -5,8 +5,8 @@ export type QueryParams = Record<string, QueryParamsValue | QueryParamsValue[]>;
 export const createQueryString = (params: QueryParams): string => {
     const searchParams = new URLSearchParams();
 
-    Object.entries(params).forEach(([key, value]) => {
-        const values = Array.isArray(value) ? value : [value];
+    Object.entries(params).forEach(([ key, value ]) => {
+        const values = Array.isArray(value) ? value : [ value ];
 
         values.forEach((item) => {
             if (item === null || item === undefined || item === '') {
