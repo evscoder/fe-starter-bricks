@@ -1,5 +1,5 @@
 import uiModules from '../ui/index.js';
-import { isPlatformClasses } from "../utils/is-platform.js";
+import { isPlatformClasses } from '../utils/is-platform.js';
 
 export class BaseApp {
     constructor(createModules) {
@@ -13,21 +13,21 @@ export class BaseApp {
 
     init() {
         isPlatformClasses();
-        this._ui = uiModules();
-        this._modules = this.createModules();
+        this.ui = uiModules();
+        this.modules = this.createModules();
     }
 
     destroy() {
-        if (this._ui && typeof this._ui.destroy === 'function') {
-            this._ui.destroy();
+        if (this.ui && typeof this.ui.destroy === 'function') {
+            this.ui.destroy();
         }
 
-        if (this._modules && typeof this._modules.destroy === 'function') {
-            this._modules.destroy();
+        if (this.modules && typeof this.modules.destroy === 'function') {
+            this.modules.destroy();
         }
 
-        this._ui = null;
-        this._modules = null;
+        this.ui = null;
+        this.modules = null;
     }
 
     afterLoad() {
