@@ -35,7 +35,10 @@
     "scss",
     "tailwindcss"
   ],
-  "author": "Your Name",
+  "author": {
+    "name": "Evgeny Staroverov",
+    "url": "https://github.com/evscoder"
+  },
   "license": "MIT",
   "dependencies": {
     "@inquirer/prompts": "^8.4.1",
