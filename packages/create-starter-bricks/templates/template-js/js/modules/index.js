@@ -13,10 +13,12 @@ const createModules = () => {
     };
 };
 
-const initModules = () => {
+const modulesComponent = () => {
     const factory = createModules();
+
     factory.onInit();
+
     return factory;
 };
 
-export default initModules;
+export default modulesComponent;

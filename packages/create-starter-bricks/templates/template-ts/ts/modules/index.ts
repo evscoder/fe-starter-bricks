@@ -15,10 +15,12 @@ const createModules = (): IFactory => {
     };
 };
 
-const initModules = (): IFactory => {
+const modulesComponent = (): IFactory => {
     const factory = createModules();
+
     factory.onInit();
+
     return factory;
 };
 
-export default initModules;
+export default modulesComponent;
