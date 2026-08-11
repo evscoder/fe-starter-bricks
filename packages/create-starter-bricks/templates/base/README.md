@@ -1,93 +1,76 @@
-![package](https://img.shields.io/badge/package-starter--bricks-blue)
-![version](https://img.shields.io/badge/version-0.0.0-informational)
-![license](https://img.shields.io/badge/license-MIT-green)
-![repository](https://img.shields.io/badge/repository-GitHub-181717)
-![node](https://img.shields.io/badge/node-20.19.3-339933)
-![npm](https://img.shields.io/badge/npm-11.5.1-CB3837)
+# Frontend Starter
 
-Create projects from ready-to-use frontend templates.
+A ready-to-use frontend distribution for multipage websites, CMS templates, Symfony views, email templates, and static frontend integration.
 
-Template-first frontend starter for multipage websites, CMS themes, Symfony views, email templates, and static frontend integration workflows.
+It comes with Gulp 4, Webpack 5, SCSS, PostCSS, Tailwind CSS, template compilation, image processing, SVG/PNG sprites, and BrowserSync.
 
 ## Quick Start
 
-Use your preferred package manager:
-
 ```bash
-npm create starter-bricks@latest
-```
-
-```bash
-npx create-starter-bricks@latest
-```
-
-```bash
-yarn create starter-bricks@latest
-```
-
-```bash
-pnpm create starter-bricks@latest
-```
-
-```bash
-bun create starter-bricks@latest
-```
-
-```bash
-bunx create-starter-bricks@latest
-```
-
-After the project is created:
-
-```bash
-cd my-new-project
 npm install
 npm start
 ```
 
-## Website Localhost
+Local server:
 
-The development server runs on:
+- `http://localhost:4200/`
+- `http://localhost:4200/index.html`
 
-- Website: `http://localhost:4200/`
-- Entry page: `http://localhost:4200/index.html`
+## Commands
 
-Email templates are available under `/emails/` after they are built:
+```bash
+npm start
+```
 
-- `http://localhost:4200/emails/address.html`
+Starts the development server, builds the project, and watches templates, styles, scripts, and assets.
+
+```bash
+npm run build
+```
+
+Builds the production version into the `build` folder.
+
+```bash
+npm run lint
+```
+
+Runs ESLint for files in `src`.
+
+## Structure
+
+- `src/templates` — pages, layouts, and template components.
+- `src/styles` — project SCSS styles.
+- `src/js` or `src/ts` — project scripts.
+- `src/assets` — images, SVG files, favicons, and other static files.
+- `build` — build output.
+- `user.config.js` — main project configuration.
+
+## Configuration
+
+The main build options are defined in `user.config.js`.
+
+Commonly changed options:
+
+- `templateEngine` — template engine: `pug`, `nunjucks`, or `twig`.
+- `typeScript` — enables TypeScript builds.
+- `folderBuild` — build output folder.
+- `assetsBuild` — path for compiled assets.
+- `serverIndexPage` — development server entry page.
+- `emailsBuild` — enables email template builds.
+- `optimizeImages` — enables image optimization.
+- `spritePng` — enables PNG sprite generation.
+
+## Email Templates
+
+If email template builds are enabled, the output is available in `build/emails`.
+
+Example local URL:
+
+```text
+http://localhost:4200/emails/address.html
+```
 
 ## Requirements
 
 - Node.js `>= 20.12.0`
 - npm, Yarn, pnpm, or Bun
-
-## What Gets Generated
-
-The generator creates a project from a shared base template and selected technology layers.
-
-Available template engines:
-
-- Pug
-- Nunjucks
-- Twig
-
-Available script setups:
-
-- JavaScript
-- TypeScript
-
-The generated project includes:
-
-- Gulp 4 build pipeline
-- Webpack 5 bundling
-- SCSS and PostCSS setup
-- Tailwind CSS support
-- MJML email templates
-- SVG and PNG sprite support
-- Image optimization
-- BrowserSync development server
-- ESLint and Stylelint configuration
-
-## License
-
-MIT
