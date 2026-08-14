@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "exports": "./index.js",
   "scripts": {
-    "start": "concurrently --raw --kill-others-on-fail \"gulp\" \"cross-env NODE_ENV=development webpack --mode development --watch\"",
-    "build": "npm run build:gulp && npm run build:webpack",
+    "start": "gulp && concurrently --raw --kill-others-on-fail \"gulp serve\" \"cross-env NODE_ENV=development webpack --mode development --watch\"",
+    "build": "npm run build:gulp && npm run build:webpack && npm run build:prod",
     "build:gulp": "cross-env NODE_ENV=production gulp build",
     "build:webpack": "cross-env NODE_ENV=production webpack --mode production",
+    "build:prod": "cross-env NODE_ENV=production gulp production",
     "update-version-minor": "npm version minor",
     "update-version-major": "npm version major",
     "lint": "eslint src --fix --ext ts,js,tsx --report-unused-disable-directives --max-warnings 0"

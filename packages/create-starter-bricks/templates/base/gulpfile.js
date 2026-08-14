@@ -19,7 +19,10 @@ task('default', series(
     images(),
     parallel(
         templateRun()
-    ),
+    )
+));
+
+task('serve', series(
     serveWatcher
 ));
 
@@ -29,6 +32,9 @@ task('build', series(
     images(),
     parallel(
         templateRun()
-    ),
+    )
+));
+
+task('production', series(
     archive
 ));
