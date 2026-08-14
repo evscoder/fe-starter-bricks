@@ -13,7 +13,7 @@ import templateModule from './template/index.js';
 import copyModule from './copy.js';
 import imagesModule from './images/index.js';
 import userConfig from '../user.config.js';
-import {stylesPath, webpackPath} from "./config.js";
+import { stylesPath, webpackPath } from './config.js';
 
 const {
     watch,
