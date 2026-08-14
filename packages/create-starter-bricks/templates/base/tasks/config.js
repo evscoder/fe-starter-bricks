@@ -73,7 +73,7 @@ export const imagesPath = {
     src: `${sourceFolder}/assets/${imageFolderName}`,
     spriteSrc: `${sourceFolder}/assets/${imageFolderName}/sprite`,
     spriteStylesDist: `${sourceFolder}/styles/plugins`,
-    svgSrc: `${sourceFolder}/assets/${imageFolderName}/svg`,
+    svgSpriteFolder: `${sourceFolder}/assets/${imageFolderName}/svg-sprite`,
     dist: `${assetsBuild}/${imageFolderName}/`
 };
 
@@ -86,13 +86,11 @@ export const watchPath = {
         `${sourceFolder}/templates/**/*.json`
     ],
     email: `${sourceFolder}/templates/emails/**/*.mjml`,
-    css: `${sourceFolder}/**/*.scss`,
-    js: {
-        src: [
-            `${sourceFolder}/${scriptExt}/**/*.${scriptExt}`
-        ]
-    },
     sprite: `${imagesPath.src}/content/sprite/**/*.png`,
-    svg: `${imagesPath.src}/svg/**/*.svg`,
+    webpackBuildPaths: [
+        `${folderBuild}/**/*.css`,
+        `${folderBuild}/**/*.js`,
+        `${folderBuild}/**/symbols-svg.svg`
+    ],
     assets: `${sourceFolder}/assets/**/*`
 };

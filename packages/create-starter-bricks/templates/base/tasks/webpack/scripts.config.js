@@ -84,7 +84,7 @@ if (userConfig.typeScript) {
     });
 }
 
-const webpackConfig = {
+const scriptsConfig = {
     mode: isProduction ? 'production' : 'development',
     devtool,
     entry: webpackPath.entry,
@@ -148,5 +148,5 @@ const webpackConfig = {
 };
 
 export {
-    webpackConfig
+    scriptsConfig
 };
