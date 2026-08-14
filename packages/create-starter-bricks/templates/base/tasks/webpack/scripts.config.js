@@ -3,7 +3,7 @@ import { fileURLToPath } from 'url';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
-import WebpackBar from 'webpackbar';
+import BuildStatusPlugin from './plugins/build-status-plugin.js';
 import { isProduction, webpackPath } from '../config.js';
 import userConfig from '../../user.config.js';
 import envModule from './env.js';
@@ -105,12 +105,7 @@ const scriptsConfig = {
         rules
     },
     plugins: [
-        new WebpackBar({
-            name: 'Scripts',
-            color: '#4BAF4F',
-            fancy: true,
-            basic: false
-        }),
+        new BuildStatusPlugin('Scripts'),
         new MiniCssExtractPlugin({
             filename: '../css/[name].css'
         }),

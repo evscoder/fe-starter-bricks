@@ -2,7 +2,7 @@ import path from 'node:path';
 import SVGSpritemapPlugin from 'svg-spritemap-webpack-plugin';
 import { imagesPath } from '../config.js';
 import currentColorPlugin from './plugins/current-color-plugin.js';
-import WebpackBar from "webpackbar";
+import BuildStatusPlugin from './plugins/build-status-plugin.js';
 
 export const svgSpriteConfig = {
     entry: {},
@@ -27,12 +27,7 @@ export const svgSpriteConfig = {
         level: 'none'
     },
     plugins: [
-        new WebpackBar({
-            name: 'SVG sprite',
-            color: '#1B75BB',
-            fancy: true,
-            basic: false
-        }),
+        new BuildStatusPlugin('SVG sprite'),
         new SVGSpritemapPlugin(
             path.resolve(
                 import.meta.dirname,
