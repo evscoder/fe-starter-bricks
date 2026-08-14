@@ -6,6 +6,7 @@ import { isProduction, stylesPath } from '../config.js';
 import RemoveFilesOnlyJsPlugin from './plugins/removeFilesOnlyJs.js';
 import userConfig from '../../user.config.js';
 import envModule from './env.js';
+import WebpackBar from "webpackbar";
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const { sourceMap, devtool } = envModule;
 
@@ -104,6 +105,12 @@ export const stylesConfig = {
         ]
     },
     plugins: [
+        new WebpackBar({
+            name: 'Styles',
+            color: '#FEBD69',
+            fancy: true,
+            basic: false,
+        }),
         new MiniCssExtractPlugin({
             filename: '../css/[name].css'
         }),

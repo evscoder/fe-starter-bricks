@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "exports": "./index.js",
   "scripts": {
-    "start": "concurrently --kill-others-on-fail \"gulp\" \"cross-env NODE_ENV=development webpack --mode development --watch\"",
+    "start": "concurrently --raw --kill-others-on-fail \"gulp\" \"cross-env NODE_ENV=development webpack --mode development --watch\"",
     "build": "npm run build:gulp && npm run build:webpack",
     "build:gulp": "cross-env NODE_ENV=production gulp build",
     "build:webpack": "cross-env NODE_ENV=production webpack --mode production",
@@ -71,7 +71,6 @@
     "webpack": "^5.101.3",
     "webpack-cli": "^7.2.2",
     "webpack-merge": "^6.0.1",
-    "webpack-shell-plugin-next": "^2.3.3",
     "webpackbar": "^7.0.0"
   },
   "dependencies": {

@@ -4,7 +4,6 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import WebpackBar from 'webpackbar';
-import WebpackShellPluginNext from 'webpack-shell-plugin-next';
 import { isProduction, webpackPath } from '../config.js';
 import userConfig from '../../user.config.js';
 import envModule from './env.js';
@@ -106,14 +105,12 @@ const scriptsConfig = {
         rules
     },
     plugins: [
-        new WebpackShellPluginNext({
-            onBuildStart: {
-                scripts: isProduction ? [] : ['clear'],
-                blocking: true,
-                parallel: false
-            }
+        new WebpackBar({
+            name: 'Scripts',
+            color: '#4BAF4F',
+            fancy: true,
+            basic: false,
         }),
-        new WebpackBar(),
         new MiniCssExtractPlugin({
             filename: '../css/[name].css'
         }),
