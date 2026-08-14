@@ -90,7 +90,7 @@ export const watchPath = {
     webpackBuildPaths: [
         `${folderBuild}/**/*.css`,
         `${folderBuild}/**/*.js`,
-        `${folderBuild}/**/symbols-svg.svg`
+        `${folderBuild}/**/symbols.svg`
     ],
     assets: `${sourceFolder}/assets/**/*`
 };

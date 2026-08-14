@@ -109,7 +109,7 @@ const scriptsConfig = {
             name: 'Scripts',
             color: '#4BAF4F',
             fancy: true,
-            basic: false,
+            basic: false
         }),
         new MiniCssExtractPlugin({
             filename: '../css/[name].css'

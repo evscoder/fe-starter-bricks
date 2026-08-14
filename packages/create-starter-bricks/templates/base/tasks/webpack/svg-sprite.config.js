@@ -31,7 +31,7 @@ export const svgSpriteConfig = {
             name: 'SVG sprite',
             color: '#1B75BB',
             fancy: true,
-            basic: false,
+            basic: false
         }),
         new SVGSpritemapPlugin(
             path.resolve(

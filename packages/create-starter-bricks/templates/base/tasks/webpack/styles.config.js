@@ -109,7 +109,7 @@ export const stylesConfig = {
             name: 'Styles',
             color: '#FEBD69',
             fancy: true,
-            basic: false,
+            basic: false
         }),
         new MiniCssExtractPlugin({
             filename: '../css/[name].css'
