@@ -1,6 +1,6 @@
 {
   "name": "create-starter-bricks",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "CLI for creating projects based on Fe Starter Bricks.",
   "repository": {
     "type": "git",
