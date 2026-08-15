@@ -1,7 +1,41 @@
 # AGENTS.md — Starter Bricks Project
 
 ## Project overview
+
 This project was created with **Starter Bricks** — a frontend starter for building responsive websites.
+
+Before making changes, inspect the existing project structure, `package.json`, and `user.config.js`.
+
+## Local development
+
+Install dependencies and start the development server:
+
+```bash
+npm install
+npm start
+```
+
+Local URL:
+
+```text
+http://localhost:3000
+```
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+## Project configuration
+
+The main project settings are located in:
+
+```text
+user.config.js
+```
+
+Use the existing configuration values for source paths, build paths, template engines, styles, scripts, images, and optional features.
 
 ## Rules
 
