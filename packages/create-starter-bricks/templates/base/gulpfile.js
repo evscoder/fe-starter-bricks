@@ -35,6 +35,6 @@ task('build', series(
     )
 ));
 
-task('production', series(
+task('prod', series(
     archive
 ));

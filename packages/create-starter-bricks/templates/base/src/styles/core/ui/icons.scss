@@ -1,4 +1,4 @@
-@use '../plugins/sprite-mixin' as sprite;
+@use '../../plugins/sprite-mixin' as sprite;
 
 svg[class^="icon-"] {
     display: inline-block;

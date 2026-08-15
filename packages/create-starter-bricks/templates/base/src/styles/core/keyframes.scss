@@ -38,12 +38,3 @@
         transform: rotate(360deg);
     }
 }
-
-@keyframes slideDown {
-    from {
-        transform: translateY(0);
-    }
-    to {
-          transform: translateY(100%);
-    }
-}

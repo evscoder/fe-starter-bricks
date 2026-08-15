@@ -1,1 +1,13 @@
+@mixin generate-order($max: 20) {
+    @for $i from 0 through $max {
+        .flex-order-#{$i} {
+            order: $i;
+        }
+    }
 
+    .order-overflow {
+        order: $max;
+    }
+}
+
+@include generate-order(20);
