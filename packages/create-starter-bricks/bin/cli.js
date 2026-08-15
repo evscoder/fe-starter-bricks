@@ -213,33 +213,6 @@ const updatePackageJson = async ({
     });
 };
 
-const updateAgentsMd = async ({
-    projectPath,
-    projectName
-}) => {
-    const agentsPath = path.join(projectPath, 'AGENTS.md');
-
-    await ensureTemplateExists(agentsPath, 'AGENTS.md');
-
-    const content = await fs.readFile(agentsPath, 'utf8');
-    const titlePattern = /^# AGENTS\.md — Starter Bricks$/m;
-
-    if (!titlePattern.test(content)) {
-        throw new Error(
-            'Project title was not found in AGENTS.md.'
-        );
-    }
-
-    await fs.writeFile(
-        agentsPath,
-        content.replace(
-            titlePattern,
-            `# AGENTS.md — ${projectName}`
-        ),
-        'utf8'
-    );
-};
-
 const askQuestions = async () => {
     const projectName = await input({
         message: 'Project folder name:',
@@ -371,11 +344,6 @@ const createProject = async (answers) => {
     });
 
     await updatePackageJson({
-        projectPath,
-        projectName: answers.projectName
-    });
-
-    await updateAgentsMd({
         projectPath,
         projectName: answers.projectName
     });
