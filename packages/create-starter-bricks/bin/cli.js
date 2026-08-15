@@ -183,9 +183,9 @@ const updateUserConfig = async ({
 };
 
 const updatePackageJson = async ({
-                                     projectPath,
-                                     projectName
-                                 }) => {
+    projectPath,
+    projectName
+}) => {
     const packagePath = path.join(projectPath, 'package.json');
 
     await ensureTemplateExists(packagePath, 'package.json');
@@ -211,6 +211,33 @@ const updatePackageJson = async ({
         spaces: 2,
         EOL: '\n'
     });
+};
+
+const updateAgentsMd = async ({
+    projectPath,
+    projectName
+}) => {
+    const agentsPath = path.join(projectPath, 'AGENTS.md');
+
+    await ensureTemplateExists(agentsPath, 'AGENTS.md');
+
+    const content = await fs.readFile(agentsPath, 'utf8');
+    const titlePattern = /^# AGENTS\.md — Starter Bricks$/m;
+
+    if (!titlePattern.test(content)) {
+        throw new Error(
+            'Project title was not found in AGENTS.md.'
+        );
+    }
+
+    await fs.writeFile(
+        agentsPath,
+        content.replace(
+            titlePattern,
+            `# AGENTS.md — ${projectName}`
+        ),
+        'utf8'
+    );
 };
 
 const askQuestions = async () => {
@@ -344,6 +371,11 @@ const createProject = async (answers) => {
     });
 
     await updatePackageJson({
+        projectPath,
+        projectName: answers.projectName
+    });
+
+    await updateAgentsMd({
         projectPath,
         projectName: answers.projectName
     });

@@ -1,4 +1,4 @@
-# Frontend Starter
+# Starter Bricks
 
 A ready-to-use frontend distribution for multipage websites, CMS templates, Symfony views, email templates, and static frontend integration.
 
