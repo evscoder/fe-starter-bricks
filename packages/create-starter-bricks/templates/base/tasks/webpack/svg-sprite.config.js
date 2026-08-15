@@ -27,7 +27,10 @@ export const svgSpriteConfig = {
         level: 'none'
     },
     plugins: [
-        new BuildStatusPlugin('SVG sprite'),
+        new BuildStatusPlugin({
+            name: 'SVG sprite',
+            showWarnings: true
+        }),
         new SVGSpritemapPlugin(
             path.resolve(
                 import.meta.dirname,

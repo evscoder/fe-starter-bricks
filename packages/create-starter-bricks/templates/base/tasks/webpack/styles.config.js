@@ -105,7 +105,10 @@ export const stylesConfig = {
         ]
     },
     plugins: [
-        new BuildStatusPlugin('Styles'),
+        new BuildStatusPlugin({
+            name: 'Styles',
+            showWarnings: true
+        }),
         new MiniCssExtractPlugin({
             filename: '../css/[name].css'
         }),

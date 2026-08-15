@@ -105,7 +105,10 @@ const scriptsConfig = {
         rules
     },
     plugins: [
-        new BuildStatusPlugin('Scripts'),
+        new BuildStatusPlugin({
+            name: 'Scripts',
+            showWarnings: true
+        }),
         new MiniCssExtractPlugin({
             filename: '../css/[name].css'
         }),
