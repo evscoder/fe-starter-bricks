@@ -1,0 +1,14 @@
+@use '../../plugins/mixins' as *;
+@use '../../plugins/media' as *;
+
+.invisible-scroll {
+    @include scrollbar-invisible();
+}
+
+.invisible-scroll-mobile {
+    @media screen and (width < bp('md')) {
+        @include scrollbar-invisible();
+    }
+}
+
+

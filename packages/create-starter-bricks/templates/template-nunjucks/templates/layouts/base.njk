@@ -1,0 +1,23 @@
+{% import "../shared/ui/head/index.njk" as Head with context %}
+{% from "../widgets/footer/index.njk" import Footer with context %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+    {{ Head.content(head.default, pathPrefix) }}
+    <body>
+        %symbols%
+        <div class="page-wrapper">
+            {% block header %}{% endblock %}
+            <main class="page-content">
+                {% block content %}{% endblock %}
+            </main>
+            {% block footer %}
+                {{ Footer(footer.default) }}
+            {% endblock %}
+        </div>
+        {% block scripts %}
+            <script src="{{ staticPath.js }}/vendor.js{{ version }}"></script>
+            <script src="{{ staticPath.js }}/main.js{{ version }}"></script>
+        {% endblock %}
+    </body>
+</html>

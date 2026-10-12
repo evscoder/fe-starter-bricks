@@ -1,0 +1,31 @@
+@use '../../plugins/sprite-mixin' as sprite;
+
+svg[class^="icon-"] {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+
+    &:not([fill="none"]) {
+        fill: currentColor;
+    }
+}
+
+svg.icon-stroke {
+    stroke: currentColor;
+}
+
+[class*="s-icon"] {
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    &::before {
+        content: "";
+        display: block;
+    }
+}
+
+@include sprite.retina-sprites(sprite.$retina-groups);

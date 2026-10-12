@@ -1,0 +1,21 @@
+{% macro icon(name, width = null, height = null, attributes = {}) %}
+    {% set height = height ?? width %}
+
+    {% set href = symbolsInject
+        ? '#' ~ name
+        : (PATH ?? pathPrefix ?? '') ~ 'assets/img/symbols.svg' ~ (version ?? '') ~ '#' ~ name
+    %}
+
+    <svg
+        class="icon icon-{{ name }}{% if attributes.class is defined %} {{ attributes.class }}{% endif %}"
+        {% if width %}width="{{ width }}"{% endif %}
+        {% if height %}height="{{ height }}"{% endif %}
+        {% for key, value in attributes %}
+            {% if key != 'class' %}
+                {{ key }}="{{ value }}"
+            {% endif %}
+        {% endfor %}
+    >
+        <use xlink:href="{{ href }}"></use>
+    </svg>
+{% endmacro %}

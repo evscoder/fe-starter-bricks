@@ -1,0 +1,11 @@
+$maxOrders: 20;
+
+@for $i from 0 through $maxOrders {
+  .flex-order-#{$i} {
+    order: $i;
+  }
+}
+
+.order-overflow {
+  order: $maxOrders;
+}

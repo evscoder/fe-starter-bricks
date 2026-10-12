@@ -1,0 +1,31 @@
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+
+    &,
+    &::before,
+    &::after {
+        box-sizing: border-box;
+    }
+}
+
+html,
+body {
+    -webkit-overflow-scrolling: touch;
+}
+
+html {
+    font-size: var(--font-size-base);
+}
+
+body {
+    display: grid;
+    grid-template-columns: minmax(0, 100%);
+    min-height: 100vh;
+    font-family: var(--font-family-default), sans-serif;
+    font-feature-settings: var(--font-feature, normal);
+    font-variant: normal;
+    color: var(--text-color);
+    background: var(--background-color) none 50% 0 / cover;
+}
